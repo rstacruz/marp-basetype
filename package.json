@@ -1,0 +1,13 @@
+{
+  "name": "@rstacruz/marp-basetype",
+  "version": "0.0.1",
+  "license": "MIT",
+  "files": ["basetype.css"],
+  "devDependencies": {
+    "@marp-team/marp-cli": "^1.7.1"
+  },
+  "scripts": {
+    "build": "make pdf",
+    "dev": "make dev"
+  }
+}
