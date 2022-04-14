@@ -8,6 +8,9 @@ Basetype is a slide deck theme for the [Marp presentation ecosystem](https://mar
 <td><img src="previews/sample-pages.001.png" alt="Sample content page" /></td>
 </tr>
 </table>
+
+<details>
+<summary>More examples</summary>
 <table>
 <tr>
 <td><img src="previews/sample-covers.005.png" alt="Sample cover page" /></td>
@@ -20,6 +23,7 @@ Basetype is a slide deck theme for the [Marp presentation ecosystem](https://mar
 <td><img src="previews/sample-pages.011.png" alt="Sample content page" /></td>
 </tr>
 </table>
+</details>
 
 <details>
 <summary>Usage with VSCode</summary>
@@ -39,7 +43,7 @@ Basetype is a slide deck theme for the [Marp presentation ecosystem](https://mar
 
   ```css
   /* @theme basetype */
-  @import url("https://cdn.jsdelivr.net/gh/rstacruz/marp-basetype@v0.0.1/basetype.css");
+  @import url("https://cdn.jsdelivr.net/gh/rstacruz/marp-basetype@a7ecdf618582535af754c062dffe8c0e05180ef7/basetype.css");
   ```
 
 - Create your first presentation: (eg, `hello.md`)
