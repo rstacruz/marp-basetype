@@ -1,0 +1,485 @@
+@charset "UTF-8";
+
+/*!
+ * @theme basetype
+ * @author Rico Sta Cruz
+ * @size 4:3 960px 720px
+ * @size 16:9 1280px 720px
+ */
+
+/*
+ * classes:
+ * - font-{sm,xs,xxs}
+ * - font-code-{sm,xs,xxs}
+ * - font-table-{sm,xs,xxs}
+ * - bg-{dark,gray,grid,white}
+*  - align-bottom
+ * - table-compact
+ * - side-figure
+ * - no-image-shadow
+ */
+
+@import url("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/github.min.css");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Spline+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+:root {
+  --pre-bg: #ffffff;
+  --slide-bg: #f6f6fa;
+  --slide-border: #ffffff;
+  --slide-border-size: 24px;
+  --body-text: #323248;
+  --heading-text: #121212;
+  --side-bg: transparent;
+  --mark-bg: #f0f0aa;
+  --line-bg: #56a4;
+  --side-border: var(--slide-border);
+  --monospace-font: "JetBrains Mono", monospace;
+  --pagination-text: #484856;
+  --pad-y: 56px;
+  --pad-x: 160px;
+  --pad-x-small: 80px;
+  --side-pad: 56px;
+  --font-size-md: 24px;
+  --font-size-sm: 20px;
+  --font-size-xs: 16px;
+  --font-size-xxs: 14px;
+  --accent-color: #5a8;
+  --figure-shadow: 3px 3px 0 0 #1121;
+  --figure-line-bg: #5562;
+}
+
+section,
+section * {
+  box-sizing: border-box;
+}
+
+section {
+  position: relative;
+  background-color: var(--slide-bg);
+  box-shadow: inset 0 0 0 var(--slide-border-size) var(--slide-border);
+  color: var(--body-text);
+  font-size: var(--font-size-md);
+  line-height: 1.5;
+  padding: var(--pad-y) calc(var(--pad-x) - var(--side-pad)) var(--pad-y)
+    var(--pad-x);
+  font-family: "Spline Sans", Inter, sans-serif;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+  justify-content: flex-start;
+  justify-content: center; /* flex-start | center */
+}
+
+section > * {
+  margin-top: 1em;
+  margin-bottom: 0;
+}
+
+section > :first-child:not(header),
+section > header + * {
+  margin-top: 0;
+}
+
+p,
+ul,
+li,
+figcaption {
+  break-inside: avoid;
+}
+
+ul,
+li {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+ul {
+  padding-left: 1.5em;
+  list-style-type: none;
+}
+
+li {
+  position: relative;
+}
+
+li + li {
+  margin-top: 0.5em;
+}
+
+ul > li::before {
+  content: "—";
+  font-weight: bold;
+  margin-left: -1.5em;
+  position: absolute;
+  color: var(--accent-color);
+}
+
+blockquote {
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+/* Container of bg-split-right */
+section[data-marpit-advanced-background-split="right"] {
+  background: linear-gradient(to right, var(--slide-bg) 50%, transparent 50%),
+    radial-gradient(var(--pagination-text) 1px, var(--slide-border) 1px);
+  background-size: auto auto, 48px 48px;
+}
+
+/* Headings */
+h1,
+h2,
+h3 {
+  color: var(--heading-text);
+  column-span: all;
+  /* border-bottom: solid 1px var(--line-bg); */
+  /* padding-bottom: 8px; */
+  /* margin-bottom: 12px; */
+  font-size: 1.44em;
+}
+
+h1 {
+  font-size: 3em;
+  line-height: 1.2;
+  margin: 0;
+  padding: 0;
+}
+
+section[data-marpit-advanced-background-split] h1 {
+  font-size: 2.5em;
+}
+
+:is(h1, h2, h3) + p {
+  margin-top: 0.25em;
+}
+
+h1 ~ p {
+  padding-right: 200px;
+}
+
+/* Mark */
+mark {
+  background: var(--mark-bg);
+}
+
+/* Code */
+pre {
+  margin: 1em 0 0.5em 0;
+  overflow: visible;
+  background: var(--pre-bg);
+  padding: 24px;
+  box-shadow: var(--figure-shadow);
+  font-family: var(--monospace-font);
+  border-radius: 5px;
+  overflow: auto;
+}
+
+pre code {
+  background: transparent;
+}
+
+/* Figure captions */
+pre + blockquote {
+  margin-top: -0.5em;
+  padding: 0 24px;
+  font-size: 0.85em;
+  /* background: white; */
+  /* border-top: solid 2px var(--line-bg); */
+  /* box-shadow: var(--figure-shadow); */
+}
+
+code {
+  display: inline-block;
+  font-size: 0.8em;
+  font-family: var(--monospace-font);
+  letter-spacing: -0.04em;
+  vertical-align: baseline;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+a,
+a:visited {
+  color: var(--pagination-text);
+  text-decoration-thickness: 3px;
+  text-decoration-color: #8884;
+  text-underline-offset: 0.2em;
+}
+
+/* Footer */
+header,
+footer {
+  box-sizing: content-box;
+  position: absolute;
+  display: block;
+  height: 32px;
+  line-height: 32px;
+  padding: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--pagination-text);
+}
+
+header {
+  top: calc(24px + 256px + 64px);
+  left: 24px;
+  width: 256px;
+  transform: rotate(-90deg);
+  transform-origin: 0 0;
+  text-align: right;
+  z-index: 1;
+}
+
+footer {
+  /* letter-spacing: 0.08em; */
+  /* text-transform: uppercase; */
+  bottom: 24px;
+  left: calc(56px + 32px);
+  transform: rotate(-90deg);
+  transform-origin: 0 100%;
+  box-shadow: inset 0 -3px 0 var(--side-border);
+  width: calc(720px - 80px - 1px);
+  background: var(--side-bg);
+}
+
+/*
+ * Table
+ */
+
+table {
+  margin: 0.5em 0;
+  background: white;
+  box-shadow: var(--figure-shadow);
+  padding: 8px;
+  border-collapse: collapse;
+}
+
+td {
+  border-top: solid 2px var(--figure-line-bg);
+}
+
+table > :first-child > :first-child > :is(td, th) {
+  border-top: 0;
+}
+
+td,
+th {
+  padding: 8px;
+  text-align: left;
+}
+
+:is(td, th):first-child {
+  padding-left: 16px;
+}
+
+:is(td, th):last-child {
+  padding-right: 16px;
+}
+
+/*
+ * Pagination
+ */
+
+section::after {
+  position: absolute;
+  top: 40px;
+  left: 36px;
+  width: 40px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  font-size: var(--font-size-xs);
+  color: var(--pagination-text);
+  font-family: var(--monospace-font);
+  font-weight: bold;
+}
+
+/*
+ * Section variants
+ */
+
+section.font-sm {
+  font-size: var(--font-size-sm);
+}
+
+section.font-table-sm table {
+  font-size: var(--font-size-sm);
+}
+
+section.font-code-sm pre {
+  font-size: var(--font-size-sm);
+}
+
+section.font-xs {
+  font-size: var(--font-size-xs);
+}
+
+section.font-table-xs table {
+  font-size: var(--font-size-xs);
+}
+
+section.font-code-xs table {
+  font-size: var(--font-size-xs);
+}
+
+section.font-xxs {
+  font-size: var(--font-size-xxs);
+}
+
+section.font-table-xxs table {
+  font-size: var(--font-size-xxs);
+}
+
+section.font-code-xxs table {
+  font-size: var(--font-size-xxs);
+}
+
+/*
+ * Alternate colour schemes
+ */
+
+section.bg-dark {
+  --slide-bg: #111111;
+  --slide-border: #50505a;
+  --side-border: #50505a40;
+  --body-text: #dddde2;
+  --heading-text: #fff;
+  --pagination-text: var(--slide-border);
+}
+
+section.bg-white {
+  --slide-bg: #ffffff;
+  padding-top: calc(var(--slide-border-size) + 0.5em);
+  padding-bottom: calc(var(--slide-border-size) + 0.5em);
+}
+
+section.bg-grid {
+  --slide-bg: #ffffff;
+  --side-bg: var(--slide-bg);
+  background: radial-gradient(
+    var(--pagination-text) 1px,
+    var(--slide-border) 2px
+  );
+  background-size: 48px 48px;
+}
+
+section.bg-grid :is(h1, h2, h3, p) {
+  background: var(--slide-bg);
+}
+
+section.bg-gray {
+  --slide-bg: #aaaabb;
+  --heading-text: #ffffff;
+  --pagination-text: #ffffff;
+  --body-text: #ffffff;
+  --side-border: #9999aa80;
+}
+
+section.bg-gray footer {
+  background: transparent;
+}
+
+section[data-marpit-advanced-background-split] {
+  padding-right: var(--pad-x-small);
+}
+
+section img {
+  max-width: 100%;
+}
+
+/*
+ * Table compact
+ */
+
+section.table-compact table :is(td, th) {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+/*
+ * Side figure
+ */
+
+section.side-figure {
+  --side-figure-width: 640px;
+  padding-right: calc(var(--side-figure-width) + var(--pad-x-small));
+}
+
+section.side-figure > :is(blockquote, figure):first-of-type {
+  position: absolute;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  right: 24px;
+  padding-right: 32px; /* var(--pad-x-small); */
+  padding-left: 0;
+  top: calc(
+    var(--slide-border-size) + 1px
+  ); /* Offset by a bit to prevent rounding error */
+  bottom: calc(var(--slide-border-size) + 1px);
+  width: var(--side-figure-width);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  /* background: linear-gradient(to right, var(--slide-bg) 64px, transparent 64px), */
+  /* radial-gradient(var(--pagination-text) 1px, var(--slide-border) 1px); */
+  /* background-size: auto auto, 32px 32px; */
+  background: radial-gradient(var(--pagination-text) 1px, var(--slide-bg) 1px);
+  background-size: 48px 48px;
+  align-items: center;
+}
+
+/* For figcaptions, give them a solid background, but only if there's no background image in the slide */
+section.side-figure:not([data-marpit-advanced-background]) > :is(blockquote, figure):first-of-type > blockquote {
+  background: var(--slide-bg);
+}
+
+section.side-figure > :is(blockquote, figure):first-of-type + * {
+  margin-top: 0;
+}
+
+section.side-figure
+  > :is(blockquote, figure):first-of-type
+  > :is(blockquote, p, ul, ol, pre) {
+  width: 100%;
+}
+
+section.side-figure > blockquote img {
+  max-width: 100%;
+}
+
+section p > img:first-child:last-child:not(.emoji) {
+  box-shadow: var(--figure-shadow);
+  display: block;
+  margin: auto;
+}
+
+section.no-image-shadow p > img:first-child:last-child {
+  box-shadow: none;
+}
+
+section.align-bottom {
+  justify-content: flex-end;
+}
+
+/*
+ * Columnar text
+ */
+
+div.columns-2 {
+  columns: 2;
+  column-gap: 32px;
+}
+
+div.columns-2 > :first-child {
+  margin-top: 0;
+}
+
+div.columns-2 :is(li, p) {
+  break-inside: avoid-column;
+}
