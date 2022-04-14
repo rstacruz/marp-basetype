@@ -43,7 +43,7 @@ Basetype is a slide deck theme for the [Marp presentation ecosystem](https://mar
 
   ```css
   /* @theme basetype */
-  @import url("https://cdn.jsdelivr.net/gh/rstacruz/marp-basetype@a7ecdf618582535af754c062dffe8c0e05180ef7/basetype.css");
+  @import url("https://cdn.jsdelivr.net/gh/rstacruz/marp-basetype@v0.0.2/basetype.css");
   ```
 
 - Create your first presentation: (eg, `hello.md`)
