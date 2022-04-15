@@ -53,7 +53,7 @@ footer: Cover examples
 
 ---
 
-![bg opacity:0.5](https://source.unsplash.com/T9Gsevu_N8Y)
+[bg opacity:0.5](https://source.unsplash.com/T9Gsevu_N8Y)
 
 # Image cover, light
 

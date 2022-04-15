@@ -5,6 +5,10 @@
  * @author Rico Sta Cruz
  * @size 4:3 960px 720px
  * @size 16:9 1280px 720px
+ * @size vertical-sm 640px 854px
+ * @size vertical-md 675px 900px
+ * @size vertical    675px 900px
+ * @size vertical-lg 720px 960px
  */
 
 /*
@@ -24,29 +28,39 @@
 @import url("https://fonts.googleapis.com/css2?family=Spline+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap");
 
 :root {
-  --pre-bg: #ffffff;
-  --slide-bg: #f6f6fa;
-  --slide-border: #ffffff;
-  --slide-border-size: 24px;
+  --accent-color: #5a8;
   --body-text: #323248;
+  --figure-line-bg: #5562;
+  --figure-shadow: 3px 3px 0 0 #1121;
   --heading-text: #121212;
-  --side-bg: transparent;
-  --mark-bg: #f0f0aa;
   --line-bg: #56a4;
-  --side-border: var(--slide-border);
+  --mark-bg: #f0f0aa;
   --monospace-font: "JetBrains Mono", monospace;
-  --pagination-text: #484856;
-  --pad-y: 56px;
   --pad-x: 160px;
   --pad-x-small: 80px;
+  --pad-y: 56px;
+  --pagination-text: #484856;
+  --pre-bg: #ffffff;
+  --slide-bg: #f6f6fa;
+
+  /* Header/footer on the side */
+  --side-bg: transparent;
+  --side-border-bg: var(--slide-border-bg);
   --side-pad: 56px;
+
+  /* Slide border */
+  --slide-border-bg: #ffffff;
+  --slide-border-size: 24px;
+
+  /* Font sizes */
   --font-size-md: 24px;
   --font-size-sm: 20px;
   --font-size-xs: 16px;
   --font-size-xxs: 14px;
-  --accent-color: #5a8;
-  --figure-shadow: 3px 3px 0 0 #1121;
-  --figure-line-bg: #5562;
+
+  /* How much to pull the code blocks to the side.
+   * Used in vertical layouts */
+  --pre-flush-x: 0;
 }
 
 section,
@@ -57,7 +71,7 @@ section * {
 section {
   position: relative;
   background-color: var(--slide-bg);
-  box-shadow: inset 0 0 0 var(--slide-border-size) var(--slide-border);
+  box-shadow: inset 0 0 0 var(--slide-border-size) var(--slide-border-bg);
   color: var(--body-text);
   font-size: var(--font-size-md);
   line-height: 1.5;
@@ -124,7 +138,7 @@ blockquote {
 /* Container of bg-split-right */
 section[data-marpit-advanced-background-split="right"] {
   background: linear-gradient(to right, var(--slide-bg) 50%, transparent 50%),
-    radial-gradient(var(--pagination-text) 1px, var(--slide-border) 1px);
+    radial-gradient(var(--pagination-text) 1px, var(--slide-border-bg) 1px);
   background-size: auto auto, 48px 48px;
 }
 
@@ -166,14 +180,19 @@ mark {
 
 /* Code */
 pre {
-  margin: 1em 0 0.5em 0;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+  margin-left: calc(-1 * var(--pre-flush-x));
+  margin-right: calc(-1 * var(--pre-flush-x));
   overflow: visible;
   background: var(--pre-bg);
   padding: 24px;
   box-shadow: var(--figure-shadow);
   font-family: var(--monospace-font);
   border-radius: 5px;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
 }
 
 pre code {
@@ -210,12 +229,10 @@ a:visited {
 /* Footer */
 header,
 footer {
-  box-sizing: content-box;
   position: absolute;
   display: block;
-  height: 32px;
-  line-height: 32px;
-  padding: 16px;
+  height: var(--side-pad);
+  line-height: var(--side-pad);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -226,25 +243,38 @@ footer {
 }
 
 header {
-  top: calc(24px + 256px + 64px);
-  left: 24px;
+  top: calc(var(--slide-border-size) / 2 + 256px + var(--side-pad));
+  left: var(--slide-border-size);
   width: 256px;
   transform: rotate(-90deg);
   transform-origin: 0 0;
   text-align: right;
-  z-index: 1;
+  z-index: 2;
 }
 
 footer {
   /* letter-spacing: 0.08em; */
   /* text-transform: uppercase; */
-  bottom: 24px;
-  left: calc(56px + 32px);
+  bottom: var(--slide-border-size);
+  left: calc(var(--side-pad) + var(--slide-border-size));
   transform: rotate(-90deg);
   transform-origin: 0 100%;
-  box-shadow: inset 0 -3px 0 var(--side-border);
-  width: calc(720px - 80px - 1px);
+  width: 300px;
+  z-index: 2;
+  padding: 0 16px;
+}
+
+section::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: var(--slide-border-size);
+  bottom: var(--slide-border-size);
+  left: var(--slide-border-size);
+  width: var(--side-pad);
+  border-right: solid 3px var(--side-border-bg);
   background: var(--side-bg);
+  z-index: 1;
 }
 
 /*
@@ -287,9 +317,11 @@ th {
 
 section::after {
   position: absolute;
-  top: 40px;
-  left: 36px;
-  width: 40px;
+  top: var(--slide-border-size);
+  left: var(--slide-border-size);
+  width: var(--side-pad);
+  line-height: var(--side-pad);
+  height: var(--side-pad);
   text-align: center;
   margin: 0;
   padding: 0;
@@ -297,6 +329,7 @@ section::after {
   color: var(--pagination-text);
   font-family: var(--monospace-font);
   font-weight: bold;
+  z-index: 2;
 }
 
 /*
@@ -349,7 +382,7 @@ section.bg-dark {
   --side-border: #50505a40;
   --body-text: #dddde2;
   --heading-text: #fff;
-  --pagination-text: var(--slide-border);
+  --pagination-text: var(--slide-border-bg);
 }
 
 section.bg-white {
@@ -363,7 +396,7 @@ section.bg-grid {
   --side-bg: var(--slide-bg);
   background: radial-gradient(
     var(--pagination-text) 1px,
-    var(--slide-border) 2px
+    var(--slide-border-bg) 2px
   );
   background-size: 48px 48px;
 }
@@ -380,7 +413,7 @@ section.bg-gray {
   --side-border: #9999aa80;
 }
 
-section.bg-gray footer {
+section.bg-gray::before {
   background: transparent;
 }
 
@@ -427,7 +460,7 @@ section.side-figure > :is(blockquote, figure):first-of-type {
   flex-flow: column nowrap;
   justify-content: center;
   /* background: linear-gradient(to right, var(--slide-bg) 64px, transparent 64px), */
-  /* radial-gradient(var(--pagination-text) 1px, var(--slide-border) 1px); */
+  /* radial-gradient(var(--pagination-text) 1px, var(--slide-border-bg) 1px); */
   /* background-size: auto auto, 32px 32px; */
   background: radial-gradient(var(--pagination-text) 1px, var(--slide-bg) 1px);
   background-size: 48px 48px;
@@ -482,4 +515,28 @@ div.columns-2 > :first-child {
 
 div.columns-2 :is(li, p) {
   break-inside: avoid-column;
+}
+
+/*
+ * Vertical mode
+ */
+
+section[data-size="vertical"] {
+  --pad-x: 64px;
+  --pad-y: 64px;
+  --pad-x-small: 64px;
+  --side-pad: 0px;
+  --pre-flush-x: 24px;
+}
+
+section[data-size^="vertical"] footer,
+section[data-size^="vertical"] header {
+  display: none;
+}
+
+section[data-size^="vertical"]::after {
+  top: auto;
+  left: auto;
+  right: var(--slide-border-size);
+  bottom: var(--slide-border-size);
 }
