@@ -61,6 +61,9 @@
   /* How much to pull the code blocks to the side.
    * Used in vertical layouts */
   --pre-flush-x: 0;
+
+  /* How much to shrink the p after h1 */
+  --brief-padding-right: 200px;
 }
 
 section,
@@ -170,7 +173,7 @@ section[data-marpit-advanced-background-split] h1 {
 }
 
 h1 ~ p {
-  padding-right: 200px;
+  padding-right: var(--brief-padding-right);
 }
 
 /* Mark */
@@ -184,14 +187,12 @@ pre {
   margin-bottom: 0.5em;
   margin-left: calc(-1 * var(--pre-flush-x));
   margin-right: calc(-1 * var(--pre-flush-x));
-  overflow: visible;
+  overflow: auto;
   background: var(--pre-bg);
   padding: 24px;
   box-shadow: var(--figure-shadow);
   font-family: var(--monospace-font);
   border-radius: 5px;
-  overflow-x: auto;
-  overflow-y: hidden;
   scrollbar-width: thin;
 }
 
@@ -264,6 +265,7 @@ footer {
   padding: 0 16px;
 }
 
+/* Vertical line */
 section::before {
   content: '';
   display: block;
@@ -513,7 +515,7 @@ div.columns-2 > :first-child {
   margin-top: 0;
 }
 
-div.columns-2 :is(li, p) {
+div.columns-2 :is(li, p, pre) {
   break-inside: avoid-column;
 }
 
@@ -521,12 +523,13 @@ div.columns-2 :is(li, p) {
  * Vertical mode
  */
 
-section[data-size="vertical"] {
+section[data-size^="vertical"] {
   --pad-x: 64px;
   --pad-y: 64px;
   --pad-x-small: 64px;
   --side-pad: 0px;
   --pre-flush-x: 24px;
+  --brief-padding-right: 0px;
 }
 
 section[data-size^="vertical"] footer,
@@ -534,6 +537,7 @@ section[data-size^="vertical"] header {
   display: none;
 }
 
+/* Pagination */
 section[data-size^="vertical"]::after {
   top: auto;
   left: auto;
